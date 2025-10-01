@@ -729,14 +729,15 @@
             title: 'Link Your Computer to GitHub',
             content: [
               'On GitHub page, find the blue box with code',
-              'Copy the URL: https://github.com/YOUR-USERNAME/helloworld.git',
+              'Click the HTTPS tab and copy the URL that ends with .git (example: https://github.com/YOUR-USERNAME/helloworld.git)',
               'Open new Notepad/TextEdit',
-              'Paste these commands (replace YOUR-REPO-URL):',
+              'Paste the commands from the code block below',
+              'In the git remote line, replace https://github.com/username/repoName.git with the URL you copied',
               'git init',
               'git add .',
               'git commit -m "Initial commit"',
               'git branch -M main',
-              'git remote add origin YOUR-REPO-URL',
+              'git remote add origin YOUR-REPO-URL (use your copied URL)',
               'git push -u origin main'
             ],
             important: true
