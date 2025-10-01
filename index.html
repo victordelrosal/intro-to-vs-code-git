@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Your First GitHub Page • Ultra</title>
   <meta name="theme-color" content="#0a0e27" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E" />
   <style>
     /* -------------------------------------------
        CSS variables for beautiful blue gradient with excellent contrast
@@ -401,47 +402,11 @@
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* Part 0 message styles */
-    .message .section-title {
-      letter-spacing: 0.3px;
-    }
-    .message-text {
-      color: var(--ink-1);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-    .message-text p { margin: 10px 0; }
-    .message-text ol {
-      margin: 12px 0 12px 18px;
-      padding: 0 0 0 6px;
-    }
-    .message-text li { margin: 6px 0; }
   </style>
 </head>
 <body>
   <main class="safe">
     <div class="container">
-      <!-- Part 0 message card -->
-      <section class="card message" aria-label="Part 0: Read This First">
-        <div class="card-content">
-          <h3 class="section-title" style="font-size:22px;margin:0 0 10px;">Part 0: Read This First</h3>
-          <div class="message-text">
-            <p>Hi, everyone,</p>
-            <p>just a reminder that it's perfectly normal to feel overwhelmed. Remember: frustration is part of learning something worthwhile.</p>
-            <p>Here's the truth: What you're attempting isn't easy. If it were, everyone would already be doing it, and it wouldn't give you any competitive advantage. But that's exactly why it matters. By Friday evening, you'll have accomplished something that sets you apart—you'll have coded with AI, troubleshot technical errors independently, and deployed a live webpage that anyone in the world can access. That's genuinely impressive.</p>
-            <p>Remember where you started many of you had never coded before. By the end of that first session, you had built working games and interactive applications. You proved you can do this.</p>
-            <p>Your path forward is clear:</p>
-            <ol>
-              <li>Watch the recording, Pause it, rewind it, take your time.</li>
-              <li>Use ChatGPT as your personal IT support, Screenshot any error you encounter and ask: "I'm trying to sync my code with VS Code and GitHub, but I'm getting this error: [paste error or image]." Then follow the steps it gives you, one at a time.</li>
-            </ol>
-            <p>You're doing something hard, and that's precisely why it's worth doing. Now follow these steps...</p>
-            <p>All the best,</p>
-            <p>Victor</p>
-          </div>
-        </div>
-      </section>
-
       <!-- Header -->
       <header class="hero">
         <h1 class="title">Your First GitHub Page</h1>
@@ -498,6 +463,34 @@
        Data model, identical content to your React version
        ------------------------------------------- */
     const sections = [
+      {
+        id: 'read-first',
+        title: 'Part 0: Read This First',
+        steps: [
+          {
+            id: 'message-intro',
+            title: 'A quick note from Victor',
+            content: [
+              'Hi, everyone,',
+              "It\'s perfectly normal to feel overwhelmed—frustration is part of learning something worthwhile.",
+              "What you\'re attempting isn\'t easy. If it were, it wouldn\'t give you a competitive advantage.",
+              "By Friday evening, you\'ll have coded with AI, troubleshot errors, and deployed a live webpage. That\'s impressive.",
+              'Remember where you started—many had never coded before. You proved you can do this.'
+            ]
+          },
+          {
+            id: 'path-forward',
+            title: 'Your path forward',
+            content: [
+              '1) Watch the recording. Pause, rewind, take your time.',
+              '2) Use ChatGPT for IT support. Screenshot any error and ask: "I\'m trying to sync my code with VS Code and GitHub, but I\'m getting this error: [paste error or image]." Follow the steps one at a time.',
+              "You\'re doing something hard—and that\'s exactly why it\'s worth doing.",
+              'All the best,',
+              'Victor'
+            ]
+          }
+        ]
+      },
       {
         id: 'setup',
         title: 'Part 1: Setting Up Your Accounts',
