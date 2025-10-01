@@ -158,12 +158,19 @@
       );
       pointer-events: none;
     }
+    .navbar-stack {
+      display: grid;
+      gap: clamp(18px, 4vw, 32px);
+    }
     .navbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: clamp(16px, 5vw, 48px);
       position: relative;
+    }
+    .navbar-progress {
+      width: 100%;
     }
     .navbar-brand {
       display: flex;
@@ -246,9 +253,6 @@
     }
 
     @media (max-width: 880px) {
-      :root {
-        --navbar-offset: calc(env(safe-area-inset-top, 0px) + 132px);
-      }
       .navbar-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -314,11 +318,6 @@
     }
 
     /* Progress */
-    .progress-card {
-      position: sticky;
-      top: var(--navbar-offset);
-      z-index: 60;
-    }
     .progress {
       display: grid;
       gap: 14px;
@@ -585,12 +584,6 @@
       * { transition: none !important; animation: none !important; }
     }
 
-    @media (max-width: 640px) {
-      :root {
-        --navbar-offset: calc(env(safe-area-inset-top, 0px) + 148px);
-      }
-    }
-
     @media (min-width: 720px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -599,30 +592,27 @@
 </head>
 <body id="top">
   <nav class="navbar">
-    <div class="container navbar-inner">
-      <a class="navbar-brand" href="#top" aria-label="Your First GitHub Page home">
-        <div class="navbar-logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6.5h18" />
-            <path d="M7 12h10" />
-            <path d="M5 17.5h14" />
-          </svg>
+    <div class="container navbar-stack">
+      <div class="navbar-inner">
+        <a class="navbar-brand" href="#top" aria-label="Your First GitHub Page home">
+          <div class="navbar-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6.5h18" />
+              <path d="M7 12h10" />
+              <path d="M5 17.5h14" />
+            </svg>
+          </div>
+          <div class="navbar-text">
+            <span class="navbar-eyebrow">Interactive Tutorial</span>
+            <span class="navbar-title">Your First GitHub Page</span>
+          </div>
+        </a>
+        <div class="navbar-actions">
+          <span class="navbar-badge">Guided&nbsp;&middot;&nbsp;Self-paced</span>
+          <button class="navbar-btn" type="button" data-scroll-target="#sectionsRoot">Jump to steps</button>
         </div>
-        <div class="navbar-text">
-          <span class="navbar-eyebrow">Interactive Tutorial</span>
-          <span class="navbar-title">Your First GitHub Page</span>
-        </div>
-      </a>
-      <div class="navbar-actions">
-        <span class="navbar-badge">Guided&nbsp;&middot;&nbsp;Self-paced</span>
-        <button class="navbar-btn" type="button" data-scroll-target="#sectionsRoot">Jump to steps</button>
       </div>
-    </div>
-  </nav>
-  <main class="safe">
-    <div class="container">
-      <!-- Progress card -->
-      <section class="card progress-card" aria-label="Overall Progress">
+      <section class="card navbar-progress" aria-label="Overall Progress">
         <div class="card-content">
           <div class="progress">
             <div class="progress-top">
@@ -644,7 +634,10 @@
           <div style="height:1px;background:var(--stroke);opacity:.6;margin:4px 0 0;"></div>
         </div>
       </section>
-
+    </div>
+  </nav>
+  <main class="safe">
+    <div class="container">
       <!-- Sections mount -->
       <div id="sectionsRoot" style="margin-top:14px;"></div>
 
@@ -1006,6 +999,7 @@ git push -u origin main`,
       bar.textContent = pct >= 12 ? pct + '%' : '';
       const award = document.getElementById('awardRow');
       award.style.display = done === totalSteps ? 'flex' : 'none';
+      updateNavbarOffset();
     }
 
     /* -------------------------------------------
