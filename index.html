@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Your First GitHub Page • Ultra</title>
+  <meta name="theme-color" content="#000036" />
+  <style>
+    /* -------------------------------------------
+       CSS Variables for Deep Dark Purple Theme with Tron Blue Highlights
+       ------------------------------------------- */
+    :root {
+      /* Our seven approved blue colors */
+      --blue-1: #000000;  /* Darkest-black tiny */
+      --blue-2: #000036;  /* Very Dark Blue */
+      --blue-3: #02066F;  /* Dark Blue */
+      --blue-4: #170484;  /* Dark Blue with Deep Hue */
+      --blue-5: #050c91;  /* 050c91 */
+      --blue-6: #001489;  /* Pantone Reflex Blue C Color */
+      --blue-7: #0000B3;  /* Brightest: Bright Blue */
+
+      /* Single background gradient using approved colors */
+      --background-gradient: linear-gradient(
+        to bottom,
+        var(--blue-1) 0%,
+        var(--blue-2) 5%,
+        var(--blue-3) 20%,
+        var(--blue-4) 35%,
+        var(--blue-5) 50%,
+        var(--blue-6) 75%,
+        var(--blue-7) 100%
+      );
+
+      /* Supporting tones that do not create new gradients */
+      --ink-0: rgba(255,255,255,0.92);
+      --ink-1: rgba(255,255,255,0.72);
+      --ink-2: rgba(255,255,255,0.56);
+      --ink-dim: rgba(255,255,255,0.38);
+
+      --glass: rgba(255,255,255,0.08);
+      --glass-strong: rgba(255,255,255,0.14);
+      --stroke: rgba(255,255,255,0.16);
+      --stroke-strong: rgba(255,255,255,0.28);
+
+      --success: #22c55e;  /* solid accent ok */
+      --warning: #fbbf24;  /* solid accent ok */
+      --chip-bg: rgba(255,255,255,0.10);
+
+      --radius-2xl: 22px;
+      --radius-xl: 18px;
+      --radius-lg: 14px;
+
+      --shadow-3d: 0 40px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.35);
+
+      --ring: 0 0 0 1px var(--stroke), 0 0 0 6px rgba(0, 20, 137, 0.18);
+      --ring-strong: 0 0 0 1px var(--stroke-strong), 0 0 0 10px rgba(0, 20, 137, 0.25);
+
+      --blur: saturate(140%) blur(10px);
+      --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, system-ui, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    /* Base */
+    html, body {
+      height: 100%;
+      background: var(--background-gradient) fixed;
+      color: var(--ink-0);
+      font-family: var(--font-ui);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      margin: 0;
+    }
+
+    .safe {
+      padding-top: calc(env(safe-area-inset-top, 0px) + 24px);
+      padding-right: calc(env(safe-area-inset-right, 0px) + 16px);
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+      padding-left: calc(env(safe-area-inset-left, 0px) + 16px);
+    }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .title {
+      font-weight: 800;
+      font-size: clamp(28px, 5vw, 52px);
+      letter-spacing: 0.2px;
+      margin: 0 0 10px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.98), rgba(255,255,255,0.82));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 6px 30px rgba(0,0,0,0.45));
+    }
+    .subtitle {
+      color: var(--ink-2);
+      font-size: clamp(16px, 2.6vw, 20px);
+      margin: 0;
+    }
+
+    /* Card system with polished 3D glass */
+    .card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06)) padding-box;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-3d);
+      overflow: clip;
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+    }
+
+    /* Neon rim using only blues, applied as a faux gradient border glow */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      border-radius: inherit;
+      background: linear-gradient(120deg, var(--blue-6), var(--blue-7), var(--blue-5));
+      opacity: 0.25;
+      filter: blur(16px);
+      z-index: 0;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+      padding: clamp(16px, 3.2vw, 28px);
+    }
+
+    /* Progress */
+    .progress {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink-1);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .bar {
+      width: 100%;
+      height: 12px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+      padding-right: 8px;
+      transition: width 600ms cubic-bezier(.21, .72, .24, .99);
+      background: linear-gradient(90deg, var(--blue-5), var(--blue-7));
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.35), 0 8px 22px rgba(0, 20, 137, 0.45);
+    }
+    .award {
+      margin-top: 12px;
+      display: none;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      color: #ffe08a;
+      font-weight: 800;
+    }
+    .award svg { flex: 0 0 auto; }
+
+    /* Section header buttons */
+    .section {
+      margin: 18px 0;
+    }
+    .section-button {
+      width: 100%;
+      border: 1px solid var(--stroke-strong);
+      border-radius: var(--radius-xl);
+      padding: 18px clamp(14px, 2vw, 20px);
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      color: var(--ink-0);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transform: translateZ(0);
+      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+    }
+    .section-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+      background: var(--glass-strong);
+    }
+    .section-title {
+      font-weight: 800;
+      font-size: clamp(16px, 2.6vw, 20px);
+      letter-spacing: 0.2px;
+    }
+    .section-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink-1);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .chip {
+      background: var(--chip-bg);
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    /* Steps list */
+    .steps {
+      margin-top: 12px;
+      display: none;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .step {
+      border: 2px solid var(--stroke);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      padding: 14px;
+      transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+    }
+    .step.important {
+      border-color: var(--warning);
+      background: rgba(251,191,36,0.1);
+    }
+    .step.completed {
+      border-color: var(--success);
+      background: rgba(34,197,94,0.10);
+    }
+    .step:hover {
+      transform: translateY(-1px);
+    }
+    .step-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink-0);
+      margin-bottom: 6px;
+    }
+    .badge-critical {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      background: var(--warning);
+      color: #000;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .step-ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+    .step-li {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 8px;
+      color: var(--ink-1);
+      font-size: 14px;
+      align-items: start;
+    }
+    .arrow {
+      color: rgba(173, 181, 255, 0.9);
+      font-weight: 900;
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 26px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .grid .item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      padding: 12px;
+      border-radius: var(--radius-lg);
+      color: var(--ink-1);
+      font-weight: 700;
+    }
+
+    /* Icons */
+    .icon-btn {
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      transform: translateZ(0);
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+    .icon-small { width: 22px; height: 22px; }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+
+    @media (min-width: 720px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <main class="safe">
+    <div class="container">
+      <!-- Header -->
+      <header class="hero">
+        <h1 class="title">Your First GitHub Page</h1>
+        <p class="subtitle">A complete beginner’s interactive tutorial</p>
+      </header>
+
+      <!-- Progress card -->
+      <section class="card" aria-label="Overall Progress">
+        <div class="card-content">
+          <div class="progress">
+            <div class="progress-top">
+              <span>Overall Progress</span>
+              <span id="progressCount">0 / 0</span>
+            </div>
+            <div class="bar" aria-hidden="true">
+              <div id="barFill" class="bar-fill">0%</div>
+            </div>
+            <div id="awardRow" class="award">
+              <!-- Award Icon -->
+              <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="5"></circle>
+                <path d="M8.5 14.5 7 22l5-3 5 3-1.5-7.5"></path>
+              </svg>
+              <span>Tutorial complete. Outstanding work.</span>
+            </div>
+          </div>
+          <div style="height:1px;background:var(--stroke);opacity:.6;margin:4px 0 0;"></div>
+        </div>
+      </section>
+
+      <!-- Sections mount -->
+      <div id="sectionsRoot" style="margin-top:14px;"></div>
+
+      <!-- Footer learnings -->
+      <section class="card footer" aria-label="What you have learned">
+        <div class="card-content">
+          <h3 class="section-title" style="font-size:22px;margin:0 0 10px;">What You Have Learned</h3>
+          <div class="grid">
+            <div class="item">✓ Create GitHub accounts and repositories</div>
+            <div class="item">✓ Install and use VS Code</div>
+            <div class="item">✓ Organise project files correctly</div>
+            <div class="item">✓ Use Git to sync code</div>
+            <div class="item">✓ Publish websites with GitHub Pages</div>
+            <div class="item">✓ Troubleshoot issues with AI copilots</div>
+          </div>
+          <p style="margin:12px 0 0;color:#c7caff;font-weight:800;">Your progress saves automatically. Come back anytime.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    /* -------------------------------------------
+       Data model, identical content to your React version
+       ------------------------------------------- */
+    const sections = [
+      {
+        id: 'setup',
+        title: 'Part 1: Setting Up Your Accounts',
+        steps: [
+          {
+            id: 'github-account',
+            title: 'Create a GitHub Account',
+            content: [
+              'Open your web browser (Chrome recommended)',
+              'Go to github.com',
+              'Click the "Sign up" button',
+              'Enter your email address',
+              'Create a strong password',
+              'Choose a username (this will be part of your web address)',
+              'Complete the verification steps',
+              'Verify your email by clicking the link GitHub sends you'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'install',
+        title: 'Part 2: Installing Required Software',
+        steps: [
+          {
+            id: 'vscode',
+            title: 'Install Visual Studio Code',
+            content: [
+              'Open a new browser tab',
+              'Search for "Visual Studio Code download" or go to code.visualstudio.com',
+              'Click the download button for your operating system (Windows/Mac)',
+              'Wait for download to complete',
+              'Windows: Double-click the downloaded file and follow the installation wizard',
+              'Mac: Open the .dmg file and drag VS Code to Applications',
+              'Open VS Code (you should see a welcome screen)'
+            ]
+          },
+          {
+            id: 'git',
+            title: 'Install Git (Critical!)',
+            content: [
+              'Windows: Go to git-scm.com and click "Download for Windows"',
+              'Windows: Run installer with default settings',
+              'Windows: Restart your computer after installation',
+              'Mac: Open VS Code Terminal and type "git --version"',
+              'Mac: If command not found, go to git-scm.com',
+              'Mac: Download and install Git for Mac',
+              'Mac: Restart your computer'
+            ],
+            important: true
+          }
+        ]
+      },
+      {
+        id: 'code',
+        title: 'Part 3: Creating Your Web Page Code',
+        steps: [
+          {
+            id: 'generate',
+            title: 'Generate Your Hello World Code',
+            content: [
+              'Open chat.openai.com (or Claude, Gemini)',
+              'Type: "Code a hello world page in under 30 lines of code. Output as single file HTML, JavaScript, CSS"',
+              'Press Enter and wait for the code',
+              'Code should start with <!DOCTYPE html> and end with </html>'
+            ]
+          },
+          {
+            id: 'save',
+            title: 'Save Your Code Locally',
+            content: [
+              'Open Notepad (Windows) or TextEdit (Mac)',
+              'Copy ALL the code from ChatGPT',
+              'Paste into Notepad/TextEdit',
+              'Windows: File → Save As → Change type to "All Files"',
+              'Windows: Name it "index.html"',
+              'Mac: Format → Make Plain Text first',
+              'Mac: File → Save as "index.html"'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'organize',
+        title: 'Part 4: Organizing Your Files',
+        steps: [
+          {
+            id: 'folders',
+            title: 'Create Proper Folder Structure',
+            content: [
+              'Open File Explorer (Windows) or Finder (Mac)',
+              'Go to Documents',
+              'Create new folder named "projects"',
+              'Inside projects, create folder named "helloworld"',
+              'Move your index.html file into the helloworld folder',
+              'Structure: Documents/projects/helloworld/index.html'
+            ]
+          },
+          {
+            id: 'test',
+            title: 'Test Your Page Locally',
+            content: [
+              'Open Chrome browser',
+              'Press Ctrl+O (Windows) or Cmd+O (Mac)',
+              'Navigate to your helloworld folder',
+              'Click on index.html',
+              'Click Open',
+              'You should see your Hello World page working!'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'vscode-connect',
+        title: 'Part 5: Connecting VS Code',
+        steps: [
+          {
+            id: 'open-project',
+            title: 'Open Your Project in VS Code',
+            content: [
+              'Open VS Code',
+              'Click File → Open Folder',
+              'Navigate to your projects folder',
+              'Click on the helloworld folder (select it)',
+              'Click "Select Folder" or "Open"',
+              'You should see HELLOWORLD on the left',
+              'Click index.html to view your code'
+            ]
+          },
+          {
+            id: 'terminal',
+            title: 'Open the Terminal',
+            content: [
+              'In VS Code, look at the top menu bar',
+              'Click Terminal → New Terminal',
+              'A panel should appear at the bottom',
+              'Should show "helloworld" in the path',
+              'If terminal isn\'t opening, Git is not installed correctly'
+            ],
+            important: true
+          }
+        ]
+      },
+      {
+        id: 'github-repo',
+        title: 'Part 6: Creating GitHub Repository',
+        steps: [
+          {
+            id: 'new-repo',
+            title: 'Create New Repository',
+            content: [
+              'Go to github.com and log in',
+              'Click the "+" button in top right',
+              'Click "New repository"',
+              'Repository name: type "helloworld"',
+              'Select "Public"',
+              'Leave ALL checkboxes UNCHECKED',
+              'Click green "Create repository" button',
+              'Do not close this page'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'connect',
+        title: 'Part 7: Connecting Local to GitHub',
+        steps: [
+          {
+            id: 'link',
+            title: 'Link Your Computer to GitHub',
+            content: [
+              'On GitHub page, find the blue box with code',
+              'Copy the URL: https://github.com/YOUR-USERNAME/helloworld.git',
+              'Open new Notepad/TextEdit',
+              'Paste these commands (replace YOUR-REPO-URL):',
+              'git init',
+              'git add .',
+              'git commit -m "Initial commit"',
+              'git branch -M main',
+              'git remote add origin YOUR-REPO-URL',
+              'git push -u origin main'
+            ],
+            important: true
+          },
+          {
+            id: 'run-commands',
+            title: 'Run the Commands',
+            content: [
+              'Go back to VS Code Terminal',
+              'Copy ALL commands from your Notepad',
+              'Click in Terminal window',
+              'Paste commands (right-click or Ctrl+V)',
+              'Press Enter',
+              'Watch text appear as Git processes',
+              'If an error appears, screenshot and ask a copilot for help'
+            ]
+          },
+          {
+            id: 'verify',
+            title: 'Verify the Upload',
+            content: [
+              'Go back to GitHub page in browser',
+              'Press F5 to refresh',
+              'Blue box should disappear',
+              'You should see your index.html file listed',
+              'If you do not see it, check previous step for errors'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'publish',
+        title: 'Part 8: Publishing Your Page',
+        steps: [
+          {
+            id: 'enable-pages',
+            title: 'Enable GitHub Pages',
+            content: [
+              'On GitHub repository, click "Settings" tab',
+              'In left sidebar, scroll to "Pages"',
+              'Under "Branch", open the dropdown that says "None"',
+              'Select "main"',
+              'Click "Save"',
+              'Wait 1 to 2 minutes',
+              'Refresh the page',
+              'Look for the blue box: "Your site is live at..."',
+              'Click "Visit site"',
+              'Congratulations, your page is live'
+            ],
+            important: true
+          }
+        ]
+      }
+    ];
+
+    /* -------------------------------------------
+       State and persistence
+       ------------------------------------------- */
+    const STORAGE_KEY_COMPLETED = 'tutorialProgress';
+    const STORAGE_KEY_EXPANDED  = 'tutorialExpanded';
+
+    const initialCompleted = JSON.parse(localStorage.getItem(STORAGE_KEY_COMPLETED) || '{}');
+    const initialExpanded  = JSON.parse(localStorage.getItem(STORAGE_KEY_EXPANDED)  || '{}');
+
+    let completedSteps = { ...initialCompleted };
+    let expandedSections = { ...initialExpanded };
+
+    /* -------------------------------------------
+       Helpers
+       ------------------------------------------- */
+    const totalSteps = sections.reduce((sum, s) => sum + s.steps.length, 0);
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify(completedSteps));
+      localStorage.setItem(STORAGE_KEY_EXPANDED, JSON.stringify(expandedSections));
+    }
+
+    function countCompletedInSection(section) {
+      return section.steps.filter(st => completedSteps[st.id]).length;
+    }
+
+    function updateProgressUI() {
+      const done = Object.values(completedSteps).filter(Boolean).length;
+      const pct = Math.round((done / totalSteps) * 100) || 0;
+      document.getElementById('progressCount').textContent = `${done} / ${totalSteps}`;
+      const bar = document.getElementById('barFill');
+      bar.style.width = pct + '%';
+      bar.textContent = pct >= 12 ? pct + '%' : '';
+      const award = document.getElementById('awardRow');
+      award.style.display = done === totalSteps ? 'flex' : 'none';
+    }
+
+    /* -------------------------------------------
+       Icons (inline SVG)
+       ------------------------------------------- */
+    function IconCircle() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.52)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"></circle>
+        </svg>
+      `;
+    }
+    function IconCheckCircle() {
+      return `
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 12l2 2 4-4"></path>
+          <circle cx="12" cy="12" r="9"></circle>
+        </svg>
+      `;
+    }
+    function IconChevronRight() {
+      return `
+        <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      `;
+    }
+    function IconChevronDown() {
+      return `
+        <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      `;
+    }
+
+    /* -------------------------------------------
+       Render
+       ------------------------------------------- */
+    function render() {
+      const mount = document.getElementById('sectionsRoot');
+      mount.innerHTML = '';
+
+      sections.forEach(section => {
+        const sec = document.createElement('section');
+        sec.className = 'section';
+
+        // Header button
+        const btn = document.createElement('button');
+        btn.className = 'section-button';
+        btn.setAttribute('type', 'button');
+        btn.setAttribute('aria-expanded', String(!!expandedSections[section.id]));
+        btn.style.boxShadow = 'var(--shadow-soft)';
+        btn.innerHTML = `
+          <div class="section-title">${section.title}</div>
+          <div class="section-meta">
+            <span class="chip">${countCompletedInSection(section)} / ${section.steps.length}</span>
+            <span class="chev">${expandedSections[section.id] ? IconChevronDown() : IconChevronRight()}</span>
+          </div>
+        `;
+
+        // Steps container
+        const stepsWrap = document.createElement('div');
+        stepsWrap.className = 'steps';
+        stepsWrap.style.display = expandedSections[section.id] ? 'grid' : 'none';
+
+        // Steps
+        section.steps.forEach(step => {
+          const stepEl = document.createElement('div');
+          stepEl.className = 'step' + (step.important ? ' important' : '') + (completedSteps[step.id] ? ' completed' : '');
+
+          const iconBtn = document.createElement('button');
+          iconBtn.className = 'icon-btn';
+          iconBtn.innerHTML = completedSteps[step.id] ? IconCheckCircle() : IconCircle();
+          iconBtn.setAttribute('aria-label', completedSteps[step.id] ? 'Mark incomplete' : 'Mark complete');
+
+          iconBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            completedSteps[step.id] = !completedSteps[step.id];
+            save();
+            updateProgressUI();
+            render();  // re-render section counts and visuals
+          });
+
+          const head = document.createElement('div');
+          head.className = 'step-head';
+
+          const textWrap = document.createElement('div');
+          const title = document.createElement('div');
+          title.className = 'step-title';
+          title.innerHTML = `
+            <span>${step.title}</span>
+            ${step.important ? '<span class="badge-critical">CRITICAL</span>' : ''}
+          `;
+
+          const ul = document.createElement('ul');
+          ul.className = 'step-ul';
+          step.content.forEach(line => {
+            const li = document.createElement('li');
+            li.className = 'step-li';
+            li.innerHTML = `<span class="arrow">→</span><span>${line}</span>`;
+            ul.appendChild(li);
+          });
+
+          textWrap.appendChild(title);
+          textWrap.appendChild(ul);
+
+          head.appendChild(iconBtn);
+          head.appendChild(textWrap);
+          stepEl.appendChild(head);
+          stepsWrap.appendChild(stepEl);
+        });
+
+        // Toggle
+        btn.addEventListener('click', () => {
+          expandedSections[section.id] = !expandedSections[section.id];
+          save();
+          stepsWrap.style.display = expandedSections[section.id] ? 'grid' : 'none';
+          btn.setAttribute('aria-expanded', String(!!expandedSections[section.id]));
+          const chev = btn.querySelector('.chev');
+          chev.innerHTML = expandedSections[section.id] ? IconChevronDown() : IconChevronRight();
+          // ring feedback
+          btn.style.boxShadow = expandedSections[section.id] ? 'var(--ring-strong)' : 'var(--ring)';
+          setTimeout(() => { btn.style.boxShadow = 'var(--shadow-soft)'; }, 220);
+        });
+
+        sec.appendChild(btn);
+        sec.appendChild(stepsWrap);
+        mount.appendChild(sec);
+      });
+
+      updateProgressUI();
+    }
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
