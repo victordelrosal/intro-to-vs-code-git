@@ -360,6 +360,10 @@
       transform: translateY(-1px);
     }
 
+    /* Plain step body (no arrows, continuous message) */
+    .step-plain { color: var(--ink-1); font-size: 14px; }
+    .step-plain p { margin: 6px 0; }
+
     /* Footer */
     .footer {
       margin-top: 26px;
@@ -470,6 +474,7 @@
           {
             id: 'message-intro',
             title: 'A quick note from Victor',
+            plain: true,
             content: [
               'Hi, everyone,',
               "It\'s perfectly normal to feel overwhelmed—frustration is part of learning something worthwhile.",
@@ -481,6 +486,7 @@
           {
             id: 'path-forward',
             title: 'Your path forward',
+            plain: true,
             content: [
               '1) Watch the recording. Pause, rewind, take your time.',
               '2) Use ChatGPT for IT support. Screenshot any error and ask: "I\'m trying to sync my code with VS Code and GitHub, but I\'m getting this error: [paste error or image]." Follow the steps one at a time.',
@@ -871,17 +877,30 @@
             ${step.important ? '<span class="badge-critical">CRITICAL</span>' : ''}
           `;
 
-          const ul = document.createElement('ul');
-          ul.className = 'step-ul';
-          step.content.forEach(line => {
-            const li = document.createElement('li');
-            li.className = 'step-li';
-            li.innerHTML = `<span class="arrow">→</span><span>${line}</span>`;
-            ul.appendChild(li);
-          });
+          let bodyEl;
+          if (step.plain) {
+            const plain = document.createElement('div');
+            plain.className = 'step-plain';
+            step.content.forEach(line => {
+              const p = document.createElement('p');
+              p.textContent = line;
+              plain.appendChild(p);
+            });
+            bodyEl = plain;
+          } else {
+            const ul = document.createElement('ul');
+            ul.className = 'step-ul';
+            step.content.forEach(line => {
+              const li = document.createElement('li');
+              li.className = 'step-li';
+              li.innerHTML = `<span class="arrow">→</span><span>${line}</span>`;
+              ul.appendChild(li);
+            });
+            bodyEl = ul;
+          }
 
           textWrap.appendChild(title);
-          textWrap.appendChild(ul);
+          textWrap.appendChild(bodyEl);
 
           head.appendChild(iconBtn);
           head.appendChild(textWrap);
