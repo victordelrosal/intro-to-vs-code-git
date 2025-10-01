@@ -575,6 +575,15 @@
       border: 1px solid var(--stroke);
       border-radius: 999px;
       padding: 6px 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      transition: background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+    }
+    .chip-complete {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(59, 130, 246, 0.18));
+      border-color: rgba(16, 185, 129, 0.55);
+      color: #bbf7d0;
+      box-shadow: 0 12px 26px rgba(13, 148, 136, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.18);
     }
 
     /* Steps list */
@@ -1328,10 +1337,13 @@ git push -u origin main`,
         btn.setAttribute('type', 'button');
         btn.setAttribute('aria-expanded', String(!!expandedSections[section.id]));
         btn.style.boxShadow = 'var(--shadow-soft)';
+        const completedCount = countCompletedInSection(section);
+        const totalInSection = section.steps.length;
+        const chipClass = 'chip' + (totalInSection > 0 && completedCount === totalInSection ? ' chip-complete' : '');
         btn.innerHTML = `
           <div class="section-title">${section.title}</div>
           <div class="section-meta">
-            <span class="chip">${countCompletedInSection(section)} / ${section.steps.length}</span>
+            <span class="${chipClass}">${completedCount} / ${totalInSection}</span>
             <span class="chev">${expandedSections[section.id] ? IconChevronDown() : IconChevronRight()}</span>
           </div>
         `;
