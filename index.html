@@ -373,7 +373,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding-top: calc(var(--navbar-offset) + 28px);
+      padding-top: calc(var(--navbar-offset) + 32px);
       pointer-events: none;
       z-index: 160;
     }
@@ -383,54 +383,73 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 16px;
-      padding: 18px 28px;
-      border-radius: 20px;
-      background: rgba(10, 14, 39, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.32);
-      box-shadow: 0 28px 48px rgba(2, 8, 23, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      color: var(--ink-0);
+      gap: 18px;
+      padding: 22px 32px;
+      border-radius: 24px;
+      background: rgba(12, 16, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.48);
+      box-shadow: 0 35px 70px rgba(8, 12, 32, 0.55), 0 0 45px rgba(59, 130, 246, 0.45);
+      color: #f8fafc;
       font-weight: 700;
       letter-spacing: 0.015em;
-      max-width: min(440px, 92vw);
+      max-width: min(520px, 92vw);
       flex-wrap: wrap;
       opacity: 0;
-      transform: translateY(-18px) scale(0.95);
+      transform: translateY(30px) scale(0.82) rotate(-1.2deg);
       transition: opacity 320ms ease, transform 320ms ease;
+      backdrop-filter: blur(14px) saturate(135%);
+      -webkit-backdrop-filter: blur(14px) saturate(135%);
+      overflow: hidden;
+    }
+    .celebration::after {
+      content: '';
+      position: absolute;
+      inset: -16px;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.32), transparent 55%), radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.45), transparent 65%);
+      opacity: 0.75;
+      filter: blur(28px);
+      z-index: -1;
+      transition: opacity 320ms ease;
     }
     .celebration.show {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0) scale(1) rotate(0deg);
+      animation: celebrationPop 540ms cubic-bezier(0.16, 0.8, 0.34, 1.1) both, celebrationPulse 2600ms ease-in-out 620ms infinite;
     }
     .celebration.is-fading {
       opacity: 0;
-      transform: translateY(-18px) scale(0.95);
+      transform: translateY(-18px) scale(0.9);
+    }
+    .celebration.is-fading::after {
+      opacity: 0;
     }
     .celebration-glyph {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
-      font-size: 22px;
-      background: rgba(59, 130, 246, 0.24);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      font-size: 28px;
+      background: rgba(59, 130, 246, 0.32);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 28px rgba(15, 23, 42, 0.35);
       flex: 0 0 auto;
     }
     .celebration-message {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      font-size: 16px;
+      gap: 6px;
+      font-size: 17px;
     }
     .celebration-message strong {
-      font-size: 18px;
-      letter-spacing: 0.02em;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
     .celebration-message span {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
-      color: var(--ink-1);
+      color: #e2e8f0;
     }
 
     @media (max-width: 560px) {
@@ -439,43 +458,45 @@
         padding-inline: 16px;
       }
       .celebration {
-        padding: 16px 22px;
-        gap: 12px;
+        padding: 18px 24px;
+        gap: 14px;
       }
       .celebration-glyph {
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
       }
       .celebration-message {
-        font-size: 15px;
+        font-size: 16px;
       }
       .celebration-message strong {
-        font-size: 17px;
+        font-size: 19px;
       }
     }
 
     .celebration--level1 {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(30, 64, 175, 0.25));
-      border-color: rgba(96, 165, 250, 0.6);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.45), rgba(14, 116, 144, 0.32));
+      border-color: rgba(59, 130, 246, 0.7);
+      box-shadow: 0 38px 70px rgba(14, 67, 120, 0.58), 0 0 50px rgba(59, 130, 246, 0.45);
     }
     .celebration--level1 .celebration-glyph {
-      background: rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.4);
     }
     .celebration--level2 {
-      background: linear-gradient(135deg, rgba(249, 115, 22, 0.32), rgba(59, 130, 246, 0.22));
-      border-color: rgba(251, 191, 36, 0.55);
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.52), rgba(244, 114, 182, 0.32), rgba(59, 130, 246, 0.26));
+      border-color: rgba(251, 191, 36, 0.75);
+      box-shadow: 0 45px 80px rgba(120, 53, 15, 0.5), 0 0 60px rgba(251, 191, 36, 0.48);
     }
     .celebration--level2 .celebration-glyph {
-      background: rgba(249, 115, 22, 0.35);
+      background: rgba(250, 204, 21, 0.48);
     }
     .celebration--level3 {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(59, 130, 246, 0.26));
-      border-color: rgba(16, 185, 129, 0.6);
-      box-shadow: 0 32px 60px rgba(15, 23, 42, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(52, 211, 153, 0.45), rgba(59, 130, 246, 0.32));
+      border-color: rgba(16, 185, 129, 0.78);
+      box-shadow: 0 55px 110px rgba(6, 95, 70, 0.6), 0 0 80px rgba(16, 185, 129, 0.55);
     }
     .celebration--level3 .celebration-glyph {
-      background: rgba(16, 185, 129, 0.35);
+      background: rgba(52, 211, 153, 0.5);
     }
 
     .celebration-spark,
@@ -483,35 +504,38 @@
     .celebration-confetti {
       position: absolute;
       pointer-events: none;
+      mix-blend-mode: screen;
     }
 
     .celebration-spark {
-      width: 10px;
-      height: 10px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(59, 130, 246, 0));
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.98), rgba(59, 130, 246, 0.2), transparent 70%);
       opacity: 0;
-      animation: sparkFloat 1.8s ease-out forwards;
+      box-shadow: 0 0 18px rgba(96, 165, 250, 0.65);
+      animation: sparkFloat 2.1s ease-out forwards;
     }
     @keyframes sparkFloat {
-      0% { transform: translateY(16px) scale(0.4); opacity: 0; }
-      30% { opacity: 1; }
-      100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+      0% { transform: translateY(20px) scale(0.35); opacity: 0; }
+      18% { opacity: 1; }
+      100% { transform: translateY(-90px) scale(1.35); opacity: 0; }
     }
 
     .celebration-star {
       width: 20px;
       height: 20px;
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 72%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(249, 115, 22, 0.65), rgba(15, 23, 42, 0));
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(249, 115, 22, 0.7), transparent 70%);
       opacity: 0;
-      animation: starBurst 2s ease-out forwards;
+      filter: drop-shadow(0 0 12px rgba(249, 115, 22, 0.65));
+      animation: starBurst 2.4s ease-out forwards;
     }
     @keyframes starBurst {
       0% { transform: scale(0) rotate(0deg); opacity: 0; }
-      25% { opacity: 1; }
-      60% { transform: scale(1.3) rotate(12deg); opacity: 1; }
-      100% { transform: scale(0.3) rotate(30deg); opacity: 0; }
+      28% { opacity: 1; }
+      60% { transform: scale(1.45) rotate(18deg); opacity: 1; }
+      100% { transform: scale(0.35) rotate(38deg); opacity: 0; }
     }
 
     .celebration-confetti {
@@ -520,13 +544,25 @@
       border-radius: 4px;
       background: linear-gradient(135deg, var(--cf1, #fbbf24), var(--cf2, #3b82f6));
       opacity: 0;
-      animation: confettiFall 2.8s cubic-bezier(0.16, 0.78, 0.41, 0.99) forwards;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+      animation: confettiFall 3.4s cubic-bezier(0.16, 0.78, 0.41, 0.99) forwards;
     }
     @keyframes confettiFall {
-      0% { transform: translate3d(0, -20px, 0) rotate(0deg); opacity: 0; }
+      0% { transform: translate3d(0, -30px, 0) rotate(0deg); opacity: 0; }
       12% { opacity: 1; }
-      65% { transform: translate3d(var(--dx, 0px), 80px, 0) rotate(var(--rot, 160deg)); opacity: 1; }
-      100% { transform: translate3d(calc(var(--dx, 0px) * 1.1), 140px, 0) rotate(calc(var(--rot, 160deg) * 1.4)); opacity: 0; }
+      65% { transform: translate3d(var(--dx, 0px), 110px, 0) rotate(var(--rot, 220deg)); opacity: 1; }
+      100% { transform: translate3d(calc(var(--dx, 0px) * 1.1), 170px, 0) rotate(calc(var(--rot, 220deg) * 1.35)); opacity: 0; }
+    }
+
+    @keyframes celebrationPop {
+      0% { transform: translateY(30px) scale(0.72) rotate(-4deg); opacity: 0; }
+      55% { transform: translateY(-6px) scale(1.05) rotate(1.2deg); opacity: 1; }
+      80% { transform: translateY(2px) scale(0.98) rotate(-0.6deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+    }
+    @keyframes celebrationPulse {
+      0%, 100% { box-shadow: 0 35px 70px rgba(8, 12, 32, 0.52), 0 0 45px rgba(59, 130, 246, 0.45); }
+      50% { box-shadow: 0 40px 80px rgba(15, 23, 42, 0.58), 0 0 70px rgba(129, 140, 248, 0.55); }
     }
 
     /* Section header buttons */
@@ -1157,19 +1193,19 @@ git push -u origin main`,
 
     const celebrationMessages = {
       1: {
-        title: 'Progress unlocked!',
-        subtitle: '10% complete — you are officially on your way.',
+        title: 'Momentum ignited!',
+        subtitle: '10% complete — boosters are online and you are moving.',
         glyph: '🚀'
       },
       2: {
-        title: 'Halfway hero!',
-        subtitle: '50% complete — keep that momentum alive.',
+        title: 'Halfway legend!',
+        subtitle: '50% complete — the mission is on track, keep pressing forward.',
         glyph: '🔥'
       },
       3: {
-        title: 'World-class finish!',
-        subtitle: '100% complete — tutorial mastered.',
-        glyph: '🎉'
+        title: 'Champion status!',
+        subtitle: '100% complete — you just delivered a world-class finish.',
+        glyph: '🏆'
       }
     };
 
@@ -1234,52 +1270,63 @@ git push -u origin main`,
       message.innerHTML = `<strong>${data.title}</strong><span>${data.subtitle}</span>`;
       wrapper.appendChild(message);
 
-      const particleType = level === 3 ? 'confetti' : level === 2 ? 'star' : 'spark';
-      const particleCount = level === 3 ? 34 : level === 2 ? 18 : 12;
+      const createParticles = (type, count) => {
+        for (let i = 0; i < count; i++) {
+          const particle = document.createElement('span');
+          particle.className = `celebration-${type}`;
 
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('span');
-        particle.className = `celebration-${particleType}`;
+          if (type === 'confetti') {
+            const hue = Math.floor(Math.random() * 360);
+            particle.style.setProperty('--cf1', `hsl(${hue}, 88%, 64%)`);
+            particle.style.setProperty('--cf2', `hsl(${(hue + 28) % 360}, 82%, 56%)`);
+            particle.style.left = offsetCalc((Math.random() - 0.5) * 380);
+            particle.style.top = `${-30 - Math.random() * 30}px`;
+            particle.style.setProperty('--dx', `${(Math.random() - 0.5) * 360}px`);
+            particle.style.setProperty('--rot', `${(Math.random() * 360) - 180}deg`);
+            particle.style.animationDelay = `${Math.random() * 260}ms`;
+            particle.style.width = `${10 + Math.random() * 8}px`;
+            particle.style.height = `${16 + Math.random() * 10}px`;
+          } else if (type === 'star') {
+            particle.style.left = offsetCalc((Math.random() - 0.5) * 260);
+            particle.style.top = `${-60 - Math.random() * 120}px`;
+            particle.style.animationDelay = `${Math.random() * 200}ms`;
+            const size = 18 + Math.random() * 14;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            const glowHue = 12 + Math.random() * 70;
+            particle.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.95), hsla(${glowHue}, 90%, 60%, 0.88), transparent 70%)`;
+          } else {
+            particle.style.left = offsetCalc((Math.random() - 0.5) * 200);
+            particle.style.top = `${-20 - Math.random() * 60}px`;
+            particle.style.animationDelay = `${Math.random() * 180}ms`;
+            const size = 10 + Math.random() * 8;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            const sparkHue = 180 + Math.random() * 120;
+            particle.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.95), hsla(${sparkHue}, 95%, 70%, 0.85), transparent 75%)`;
+          }
 
-        if (particleType === 'confetti') {
-          const hue = Math.floor(Math.random() * 360);
-          particle.style.setProperty('--cf1', `hsl(${hue}, 85%, 65%)`);
-          particle.style.setProperty('--cf2', `hsl(${(hue + 30) % 360}, 80%, 55%)`);
-          particle.style.left = offsetCalc((Math.random() - 0.5) * 360);
-          particle.style.top = `${-20 - Math.random() * 20}px`;
-          particle.style.setProperty('--dx', `${(Math.random() - 0.5) * 320}px`);
-          particle.style.setProperty('--rot', `${(Math.random() * 360) - 180}deg`);
-          particle.style.animationDelay = `${Math.random() * 220}ms`;
-          particle.style.width = `${8 + Math.random() * 6}px`;
-          particle.style.height = `${14 + Math.random() * 8}px`;
-        } else if (particleType === 'star') {
-          particle.style.left = offsetCalc((Math.random() - 0.5) * 220);
-          particle.style.top = `${-40 - Math.random() * 100}px`;
-          particle.style.animationDelay = `${Math.random() * 160}ms`;
-          const size = 16 + Math.random() * 10;
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          const glowHue = 20 + Math.random() * 60;
-          particle.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.95), hsla(${glowHue}, 90%, 62%, 0.85), rgba(15, 23, 42, 0))`;
-        } else {
-          particle.style.left = offsetCalc((Math.random() - 0.5) * 160);
-          particle.style.top = `${-10 - Math.random() * 40}px`;
-          particle.style.animationDelay = `${Math.random() * 160}ms`;
-          const size = 8 + Math.random() * 6;
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          const sparkHue = 200 + Math.random() * 60;
-          particle.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.9), hsla(${sparkHue}, 95%, 72%, 0.8))`;
+          wrapper.appendChild(particle);
         }
+      };
 
-        wrapper.appendChild(particle);
+      const primaryType = level === 3 ? 'confetti' : level === 2 ? 'star' : 'spark';
+      const primaryCount = level === 3 ? 70 : level === 2 ? 36 : 22;
+      createParticles(primaryType, primaryCount);
+
+      if (level >= 2) {
+        const sparkExtras = level === 3 ? 26 : 14;
+        createParticles('spark', sparkExtras);
+      }
+      if (level === 3) {
+        createParticles('star', 24);
       }
 
       mount.appendChild(wrapper);
       requestAnimationFrame(() => wrapper.classList.add('show'));
 
-      const lifetime = level === 3 ? 3600 : level === 2 ? 2600 : 2100;
-      setTimeout(() => wrapper.classList.add('is-fading'), lifetime - 520);
+      const lifetime = level === 3 ? 5200 : level === 2 ? 4000 : 2700;
+      setTimeout(() => wrapper.classList.add('is-fading'), lifetime - 720);
       setTimeout(() => {
         if (wrapper.parentNode === mount) {
           mount.removeChild(wrapper);
