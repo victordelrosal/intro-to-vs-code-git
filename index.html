@@ -66,6 +66,7 @@
       --ring-strong: 0 0 0 2px rgba(59, 130, 246, 0.7), 0 0 0 6px rgba(59, 130, 246, 0.3);
 
       --blur: saturate(120%) blur(16px);
+      --navbar-offset: calc(env(safe-area-inset-top, 0px) + 110px);
       --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, system-ui, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
 
@@ -128,28 +129,153 @@
       margin: 0 auto;
     }
 
-    /* Hero */
-    .hero {
-      text-align: center;
-      margin-bottom: 28px;
+    /* Sticky navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 14px) clamp(18px, 6vw, 52px) 14px;
+      background: linear-gradient(135deg, rgba(10, 14, 39, 0.92), rgba(15, 22, 41, 0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 20px 45px rgba(2, 8, 23, 0.45);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
     }
-    .title {
+    .navbar::after {
+      content: "";
+      position: absolute;
+      inset: auto clamp(18px, 6vw, 52px) -2px clamp(18px, 6vw, 52px);
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,
+        rgba(37, 99, 235, 0.15) 0%,
+        rgba(59, 130, 246, 0.6) 50%,
+        rgba(37, 99, 235, 0.15) 100%
+      );
+      pointer-events: none;
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(16px, 5vw, 48px);
+      position: relative;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: inherit;
+      text-decoration: none;
+    }
+    .navbar-logo {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.35), rgba(37, 99, 235, 0.1));
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
+    }
+    .navbar-logo svg {
+      width: 24px;
+      height: 24px;
+      color: var(--ink-0);
+    }
+    .navbar-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .navbar-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .navbar-title {
       font-weight: 800;
-      font-size: clamp(28px, 5vw, 52px);
+      font-size: clamp(22px, 4vw, 36px);
       letter-spacing: 0.5px;
-      margin: 0 0 12px;
       background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.3));
-      text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+      text-shadow: 0 0 24px rgba(59, 130, 246, 0.45);
     }
-    .subtitle {
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 3vw, 24px);
       color: var(--ink-1);
-      font-size: clamp(16px, 2.6vw, 20px);
-      margin: 0;
-      font-weight: 500;
+    }
+    .navbar-badge {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(59, 130, 246, 0.18);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .navbar-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-0);
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(96, 165, 250, 0.85));
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.35);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .navbar-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 32px rgba(37, 99, 235, 0.4);
+    }
+    .navbar-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-strong);
+    }
+
+    @media (max-width: 880px) {
+      :root {
+        --navbar-offset: calc(env(safe-area-inset-top, 0px) + 132px);
+      }
+      .navbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .navbar-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .navbar-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .navbar-badge {
+        width: 100%;
+        text-align: center;
+      }
+      .navbar-btn {
+        width: 100%;
+      }
+    }
+
+    #sectionsRoot {
+      scroll-margin-top: calc(var(--navbar-offset) + 32px);
     }
 
     /* Card system with beautiful glass morphism */
@@ -188,6 +314,11 @@
     }
 
     /* Progress */
+    .progress-card {
+      position: sticky;
+      top: var(--navbar-offset);
+      z-index: 60;
+    }
     .progress {
       display: grid;
       gap: 14px;
@@ -454,23 +585,44 @@
       * { transition: none !important; animation: none !important; }
     }
 
+    @media (max-width: 640px) {
+      :root {
+        --navbar-offset: calc(env(safe-area-inset-top, 0px) + 148px);
+      }
+    }
+
     @media (min-width: 720px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
 
   </style>
 </head>
-<body>
+<body id="top">
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a class="navbar-brand" href="#top" aria-label="Your First GitHub Page home">
+        <div class="navbar-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6.5h18" />
+            <path d="M7 12h10" />
+            <path d="M5 17.5h14" />
+          </svg>
+        </div>
+        <div class="navbar-text">
+          <span class="navbar-eyebrow">Interactive Tutorial</span>
+          <span class="navbar-title">Your First GitHub Page</span>
+        </div>
+      </a>
+      <div class="navbar-actions">
+        <span class="navbar-badge">Guided&nbsp;&middot;&nbsp;Self-paced</span>
+        <button class="navbar-btn" type="button" data-scroll-target="#sectionsRoot">Jump to steps</button>
+      </div>
+    </div>
+  </nav>
   <main class="safe">
     <div class="container">
-      <!-- Header -->
-      <header class="hero">
-        <h1 class="title">Your First GitHub Page</h1>
-        <p class="subtitle">A complete beginner’s interactive tutorial</p>
-      </header>
-
       <!-- Progress card -->
-      <section class="card" aria-label="Overall Progress">
+      <section class="card progress-card" aria-label="Overall Progress">
         <div class="card-content">
           <div class="progress">
             <div class="progress-top">
@@ -1039,6 +1191,33 @@ git push -u origin main`,
 
     // Initial render
     render();
+
+    function updateNavbarOffset() {
+      const navbarEl = document.querySelector('.navbar');
+      if (!navbarEl) return;
+      const offset = navbarEl.offsetHeight + 24;
+      document.documentElement.style.setProperty('--navbar-offset', `${offset}px`);
+    }
+
+    updateNavbarOffset();
+    window.addEventListener('resize', updateNavbarOffset);
+    window.addEventListener('load', updateNavbarOffset);
+
+    // Smooth scroll for sticky navbar button
+    const jumpBtn = document.querySelector('[data-scroll-target]');
+    if (jumpBtn) {
+      jumpBtn.addEventListener('click', () => {
+        const targetSelector = jumpBtn.getAttribute('data-scroll-target');
+        const target = targetSelector ? document.querySelector(targetSelector) : null;
+        if (!target) return;
+
+        const navbar = document.querySelector('.navbar');
+        const offset = (navbar ? navbar.offsetHeight : 0) + 24;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' });
+      });
+    }
   </script>
 </body>
 </html>
