@@ -4,32 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Your First GitHub Page • Ultra</title>
-  <meta name="theme-color" content="#000036" />
+  <meta name="theme-color" content="#040512" />
   <style>
     /* -------------------------------------------
-       CSS Variables for Deep Dark Purple Theme with Tron Blue Highlights
+       CSS variables for a dark base with restrained blue highlights
        ------------------------------------------- */
     :root {
-      /* Our seven approved blue colors */
-      --blue-1: #000000;  /* Darkest-black tiny */
-      --blue-2: #000036;  /* Very Dark Blue */
-      --blue-3: #02066F;  /* Dark Blue */
-      --blue-4: #170484;  /* Dark Blue with Deep Hue */
-      --blue-5: #050c91;  /* 050c91 */
-      --blue-6: #001489;  /* Pantone Reflex Blue C Color */
-      --blue-7: #0000B3;  /* Brightest: Bright Blue */
+      --blue-1: #000000;
+      --blue-2: #000036;
+      --blue-3: #02066F;
+      --blue-4: #170484;
+      --blue-5: #050c91;
+      --blue-6: #001489;
+      --blue-7: #0000B3;
 
-      /* Single background gradient using approved colors */
-      --background-gradient: linear-gradient(
-        to bottom,
-        var(--blue-1) 0%,
-        var(--blue-2) 5%,
-        var(--blue-3) 20%,
-        var(--blue-4) 35%,
-        var(--blue-5) 50%,
-        var(--blue-6) 75%,
-        var(--blue-7) 100%
-      );
+      --surface-0: #040512;
+      --surface-1: #070a1f;
+      --surface-2: #0d1330;
+      --accent-gradient: linear-gradient(135deg, rgba(0, 20, 137, 0.38), rgba(0, 0, 179, 0));
 
       /* Supporting tones that do not create new gradients */
       --ink-0: rgba(255,255,255,0.92);
@@ -63,12 +55,29 @@
     /* Base */
     html, body {
       height: 100%;
-      background: var(--background-gradient) fixed;
+      background: var(--surface-0);
       color: var(--ink-0);
       font-family: var(--font-ui);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       margin: 0;
+    }
+
+    body {
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(120% 120% at 80% 0%, rgba(0, 20, 137, 0.32), transparent 55%),
+        linear-gradient(135deg, rgba(0, 20, 137, 0.18), transparent 45%);
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      z-index: -1;
     }
 
     .safe {
@@ -124,9 +133,9 @@
       inset: -1px;
       pointer-events: none;
       border-radius: inherit;
-      background: linear-gradient(120deg, var(--blue-6), var(--blue-7), var(--blue-5));
-      opacity: 0.25;
-      filter: blur(16px);
+      background: var(--accent-gradient);
+      opacity: 0.14;
+      filter: blur(22px);
       z-index: 0;
     }
 
@@ -170,7 +179,7 @@
       white-space: nowrap;
       padding-right: 8px;
       transition: width 600ms cubic-bezier(.21, .72, .24, .99);
-      background: linear-gradient(90deg, var(--blue-5), var(--blue-7));
+      background: var(--blue-6);
       box-shadow: inset 0 0 10px rgba(0,0,0,0.35), 0 8px 22px rgba(0, 20, 137, 0.45);
     }
     .award {
