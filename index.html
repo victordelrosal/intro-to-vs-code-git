@@ -366,6 +366,169 @@
     }
     .award svg { flex: 0 0 auto; }
 
+    /* Celebrations */
+    #celebrationMount {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: calc(var(--navbar-offset) + 28px);
+      pointer-events: none;
+      z-index: 160;
+    }
+    #celebrationMount:empty { display: none; }
+
+    .celebration {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 28px;
+      border-radius: 20px;
+      background: rgba(10, 14, 39, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      box-shadow: 0 28px 48px rgba(2, 8, 23, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      color: var(--ink-0);
+      font-weight: 700;
+      letter-spacing: 0.015em;
+      max-width: min(440px, 92vw);
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(-18px) scale(0.95);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    .celebration.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .celebration.is-fading {
+      opacity: 0;
+      transform: translateY(-18px) scale(0.95);
+    }
+    .celebration-glyph {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      background: rgba(59, 130, 246, 0.24);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      flex: 0 0 auto;
+    }
+    .celebration-message {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 16px;
+    }
+    .celebration-message strong {
+      font-size: 18px;
+      letter-spacing: 0.02em;
+    }
+    .celebration-message span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-1);
+    }
+
+    @media (max-width: 560px) {
+      #celebrationMount {
+        padding-top: calc(var(--navbar-offset) + 16px);
+        padding-inline: 16px;
+      }
+      .celebration {
+        padding: 16px 22px;
+        gap: 12px;
+      }
+      .celebration-glyph {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+      }
+      .celebration-message {
+        font-size: 15px;
+      }
+      .celebration-message strong {
+        font-size: 17px;
+      }
+    }
+
+    .celebration--level1 {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(30, 64, 175, 0.25));
+      border-color: rgba(96, 165, 250, 0.6);
+    }
+    .celebration--level1 .celebration-glyph {
+      background: rgba(59, 130, 246, 0.3);
+    }
+    .celebration--level2 {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.32), rgba(59, 130, 246, 0.22));
+      border-color: rgba(251, 191, 36, 0.55);
+    }
+    .celebration--level2 .celebration-glyph {
+      background: rgba(249, 115, 22, 0.35);
+    }
+    .celebration--level3 {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(59, 130, 246, 0.26));
+      border-color: rgba(16, 185, 129, 0.6);
+      box-shadow: 0 32px 60px rgba(15, 23, 42, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+    .celebration--level3 .celebration-glyph {
+      background: rgba(16, 185, 129, 0.35);
+    }
+
+    .celebration-spark,
+    .celebration-star,
+    .celebration-confetti {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .celebration-spark {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(59, 130, 246, 0));
+      opacity: 0;
+      animation: sparkFloat 1.8s ease-out forwards;
+    }
+    @keyframes sparkFloat {
+      0% { transform: translateY(16px) scale(0.4); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+    }
+
+    .celebration-star {
+      width: 20px;
+      height: 20px;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 72%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(249, 115, 22, 0.65), rgba(15, 23, 42, 0));
+      opacity: 0;
+      animation: starBurst 2s ease-out forwards;
+    }
+    @keyframes starBurst {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      25% { opacity: 1; }
+      60% { transform: scale(1.3) rotate(12deg); opacity: 1; }
+      100% { transform: scale(0.3) rotate(30deg); opacity: 0; }
+    }
+
+    .celebration-confetti {
+      width: 12px;
+      height: 18px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--cf1, #fbbf24), var(--cf2, #3b82f6));
+      opacity: 0;
+      animation: confettiFall 2.8s cubic-bezier(0.16, 0.78, 0.41, 0.99) forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translate3d(0, -20px, 0) rotate(0deg); opacity: 0; }
+      12% { opacity: 1; }
+      65% { transform: translate3d(var(--dx, 0px), 80px, 0) rotate(var(--rot, 160deg)); opacity: 1; }
+      100% { transform: translate3d(calc(var(--dx, 0px) * 1.1), 140px, 0) rotate(calc(var(--rot, 160deg) * 1.4)); opacity: 0; }
+    }
+
     /* Section header buttons */
     .section {
       margin: 18px 0;
@@ -636,6 +799,7 @@
       </section>
     </div>
   </nav>
+  <div id="celebrationMount" aria-live="polite"></div>
   <main class="safe">
     <div class="container">
       <!-- Sections mount -->
@@ -975,11 +1139,30 @@ git push -u origin main`,
 
     let completedSteps = { ...initialCompleted };
     let expandedSections = { ...initialExpanded };
+    let celebrationLevel = 0;
 
     /* -------------------------------------------
        Helpers
        ------------------------------------------- */
     const totalSteps = sections.reduce((sum, s) => sum + s.steps.length, 0);
+
+    const celebrationMessages = {
+      1: {
+        title: 'Progress unlocked!',
+        subtitle: '10% complete — you are officially on your way.',
+        glyph: '🚀'
+      },
+      2: {
+        title: 'Halfway hero!',
+        subtitle: '50% complete — keep that momentum alive.',
+        glyph: '🔥'
+      },
+      3: {
+        title: 'World-class finish!',
+        subtitle: '100% complete — tutorial mastered.',
+        glyph: '🎉'
+      }
+    };
 
     function save() {
       localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify(completedSteps));
@@ -999,7 +1182,100 @@ git push -u origin main`,
       bar.textContent = pct >= 12 ? pct + '%' : '';
       const award = document.getElementById('awardRow');
       award.style.display = done === totalSteps ? 'flex' : 'none';
+
+      let newCelebrationLevel = 0;
+      if (pct >= 100) {
+        newCelebrationLevel = 3;
+      } else if (pct >= 50) {
+        newCelebrationLevel = 2;
+      } else if (pct >= 10) {
+        newCelebrationLevel = 1;
+      }
+
+      if (newCelebrationLevel > celebrationLevel) {
+        celebrationLevel = newCelebrationLevel;
+        triggerCelebration(newCelebrationLevel);
+      } else if (newCelebrationLevel < celebrationLevel) {
+        celebrationLevel = newCelebrationLevel;
+      }
+
       updateNavbarOffset();
+    }
+
+    function triggerCelebration(level) {
+      const mount = document.getElementById('celebrationMount');
+      const data = celebrationMessages[level];
+      if (!mount || !data) return;
+
+      mount.textContent = '';
+
+      const offsetCalc = (value) => (value >= 0 ? `calc(50% + ${value}px)` : `calc(50% - ${Math.abs(value)}px)`);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = `celebration celebration--level${level}`;
+      wrapper.setAttribute('role', 'status');
+
+      const glyph = document.createElement('div');
+      glyph.className = 'celebration-glyph';
+      glyph.textContent = data.glyph;
+      wrapper.appendChild(glyph);
+
+      const message = document.createElement('div');
+      message.className = 'celebration-message';
+      message.innerHTML = `<strong>${data.title}</strong><span>${data.subtitle}</span>`;
+      wrapper.appendChild(message);
+
+      const particleType = level === 3 ? 'confetti' : level === 2 ? 'star' : 'spark';
+      const particleCount = level === 3 ? 34 : level === 2 ? 18 : 12;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('span');
+        particle.className = `celebration-${particleType}`;
+
+        if (particleType === 'confetti') {
+          const hue = Math.floor(Math.random() * 360);
+          particle.style.setProperty('--cf1', `hsl(${hue}, 85%, 65%)`);
+          particle.style.setProperty('--cf2', `hsl(${(hue + 30) % 360}, 80%, 55%)`);
+          particle.style.left = offsetCalc((Math.random() - 0.5) * 360);
+          particle.style.top = `${-20 - Math.random() * 20}px`;
+          particle.style.setProperty('--dx', `${(Math.random() - 0.5) * 320}px`);
+          particle.style.setProperty('--rot', `${(Math.random() * 360) - 180}deg`);
+          particle.style.animationDelay = `${Math.random() * 220}ms`;
+          particle.style.width = `${8 + Math.random() * 6}px`;
+          particle.style.height = `${14 + Math.random() * 8}px`;
+        } else if (particleType === 'star') {
+          particle.style.left = offsetCalc((Math.random() - 0.5) * 220);
+          particle.style.top = `${-40 - Math.random() * 100}px`;
+          particle.style.animationDelay = `${Math.random() * 160}ms`;
+          const size = 16 + Math.random() * 10;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          const glowHue = 20 + Math.random() * 60;
+          particle.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.95), hsla(${glowHue}, 90%, 62%, 0.85), rgba(15, 23, 42, 0))`;
+        } else {
+          particle.style.left = offsetCalc((Math.random() - 0.5) * 160);
+          particle.style.top = `${-10 - Math.random() * 40}px`;
+          particle.style.animationDelay = `${Math.random() * 160}ms`;
+          const size = 8 + Math.random() * 6;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          const sparkHue = 200 + Math.random() * 60;
+          particle.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.9), hsla(${sparkHue}, 95%, 72%, 0.8))`;
+        }
+
+        wrapper.appendChild(particle);
+      }
+
+      mount.appendChild(wrapper);
+      requestAnimationFrame(() => wrapper.classList.add('show'));
+
+      const lifetime = level === 3 ? 3600 : level === 2 ? 2600 : 2100;
+      setTimeout(() => wrapper.classList.add('is-fading'), lifetime - 520);
+      setTimeout(() => {
+        if (wrapper.parentNode === mount) {
+          mount.removeChild(wrapper);
+        }
+      }, lifetime);
     }
 
     /* -------------------------------------------
